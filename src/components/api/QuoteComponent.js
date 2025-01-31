@@ -8,7 +8,7 @@ import {
   ApiResult,
   ApiErrorMessage
 } from './ApiStyles';
-import { ClipLoader } from 'react-spinners'; // Install react-spinners for this
+import { ClipLoader } from 'react-spinners';
 
 function QuoteComponent() {
   const [quote, setQuote] = useState(null);
@@ -18,12 +18,26 @@ function QuoteComponent() {
   const fetchQuote = async () => {
     setLoading(true);
     setError(null);
-
+  
     try {
-      const response = await axios.get('https://api.quotable.io/random');
-      setQuote(response.data);
+      console.log('Fetching quote...');
+      const response = await axios.get('https://api.api-ninjas.com/v1/quotes', {
+        headers: { 'X-Api-Key': 'lymz1FlLmn1lvjll9Vt6ew==1whid00woGYMrLQx' } 
+      });
+      console.log('API Response:', response.data);
+
+      if (!response.data || response.data.length === 0) {
+        throw new Error('No quotes found.');
+      }
+
+      const quoteData = response.data[0];
+      setQuote({
+        content: quoteData.quote,
+        author: quoteData.author,
+      });
     } catch (err) {
-      setError('Failed to fetch quote. Please try again.');
+      console.error('API Error:', err);
+      setError(err.message || 'Failed to fetch quote. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -46,7 +60,7 @@ function QuoteComponent() {
           <>
             {error && <ApiErrorMessage>{error}</ApiErrorMessage>}
             
-            {quote && (
+            {quote ? (
               <ApiResult>
                 <blockquote style={{ margin: 0, fontStyle: 'italic', color: '#2c3e50' }}>
                   <p>"{quote.content}"</p>
@@ -55,11 +69,13 @@ function QuoteComponent() {
                   </footer>
                 </blockquote>
               </ApiResult>
+            ) : (
+              <p>No quote available.</p>
             )}
           </>
         )}
 
-        <ApiButton onClick={fetchQuote} disabled={loading}>
+        <ApiButton onClick={fetchQuote} disabled={loading} aria-busy={loading}>
           {loading ? 'Fetching...' : 'New Quote'}
         </ApiButton>
       </ApiCard>
