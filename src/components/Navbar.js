@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 
+// Define a fadeIn animation
 const fadeIn = keyframes`
   from {
     opacity: 0;
@@ -37,7 +38,7 @@ const NavLinks = styled.ul`
   list-style: none;
   align-items: center;
 
-  @ media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
     flex-direction: column;
     position: absolute;
@@ -107,13 +108,41 @@ function Navbar() {
     setIsOpen(!isOpen);
   };
 
-  const scrollToSection = (id) => {
-    const section = document.getElementById(id);
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
-    }
-    setIsOpen(false);
+  const scrollToBottom = () => {
+    window.scrollTo({
+      top: document.documentElement.scrollHeight, 
+      behavior: 'smooth',
+    });
+    setIsOpen(false); 
   };
+
+  const scrollTo75Percent = () => {
+    const totalHeight = document.documentElement.scrollHeight;
+    const scrollPosition = totalHeight * 0.52; 
+    window.scrollTo({
+      top: scrollPosition,
+      behavior: 'smooth',
+    });
+    setIsOpen(false); 
+  }
+  const scrollToCourse = () => {
+    const totalHeight = document.documentElement.scrollHeight;
+    const scrollPosition = totalHeight * 0.25; 
+    window.scrollTo({
+      top: scrollPosition,
+      behavior: 'smooth',
+    });
+    setIsOpen(false); 
+  }
+  const scrollToTop = () => {
+    const totalHeight = document.documentElement.scrollHeight;
+    const scrollPosition = 0; 
+    window.scrollTo({
+      top: scrollPosition,
+      behavior: 'smooth',
+    });
+    setIsOpen(false); 
+  }
 
   return (
     <NavContainer>
@@ -124,10 +153,10 @@ function Navbar() {
         <div></div>
       </Hamburger>
       <NavLinks isOpen={isOpen}>
-        <li><a href="#home" onClick={() => scrollToSection('home')}>Home</a></li>
-        <li><a href="#courses" onClick={() => scrollToSection('courses')}>Courses</a></li>
-        <li><a href="#contact" onClick={() => scrollToSection('contact')}>Contact</a></li>
-        <li><a href="#about" onClick={() => scrollToSection('about')}>About</a></li>
+        <li><a href ="#Home" onClick={scrollToTop}>Home</a></li>
+        <li><a href ="#Course" onClick={scrollToCourse}>Courses</a></li>
+        <li><a href ="#Contact" onClick={scrollToBottom}>Contact</ a></li>
+        <li><a href ="#About" onClick={scrollTo75Percent}>About</a></li>
       </NavLinks>
     </NavContainer>
   );
