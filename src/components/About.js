@@ -109,7 +109,7 @@ const AboutButton = styled.button`
 `;
 
 function About() {
-  const teamMembers = [
+  const ME = [
     {
       id: 1,
       name: 'Ismail AMMAR',
@@ -125,7 +125,7 @@ function About() {
       Hi ,I am Ismail AMMAR, a 1337 UM6P student, and I’ve developed this website that offers free language courses using React.js to deliver an intuitive and engaging experience.
       </AboutDescription>
       <TeamContainer>
-        {teamMembers.map((member) => (
+        {ME.map((member) => (
           <TeamMember key={member.id}>
             <MemberImage src={member.image} alt={member.name} />
             <MemberName>{member.name}</MemberName>

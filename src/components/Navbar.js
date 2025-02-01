@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 
-// Define a fadeIn animation
 const fadeIn = keyframes`
   from {
     opacity: 0;
