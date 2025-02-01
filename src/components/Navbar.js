@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import { keyframes } from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
-// Define a fadeIn animation
 const fadeIn = keyframes`
   from {
     opacity: 0;
@@ -39,7 +37,7 @@ const NavLinks = styled.ul`
   list-style: none;
   align-items: center;
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+  @ media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
     flex-direction: column;
     position: absolute;
@@ -109,6 +107,14 @@ function Navbar() {
     setIsOpen(!isOpen);
   };
 
+  const scrollToSection = (id) => {
+    const section = document.getElementById(id);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+    setIsOpen(false);
+  };
+
   return (
     <NavContainer>
       <Logo>Lang-me</Logo>
@@ -118,10 +124,10 @@ function Navbar() {
         <div></div>
       </Hamburger>
       <NavLinks isOpen={isOpen}>
-        <li><a href="#home" onClick={() => setIsOpen(false)}>Home</a></li>
-        <li><a href="#courses" onClick={() => setIsOpen(false)}>Courses</a></li>
-        <li><a href="#about" onClick={() => setIsOpen(false)}>About</a></li>
-        <li><a href="#contact" onClick={() => setIsOpen(false)}>Contact</a></li>
+        <li><a href="#home" onClick={() => scrollToSection('home')}>Home</a></li>
+        <li><a href="#courses" onClick={() => scrollToSection('courses')}>Courses</a></li>
+        <li><a href="#contact" onClick={() => scrollToSection('contact')}>Contact</a></li>
+        <li><a href="#about" onClick={() => scrollToSection('about')}>About</a></li>
       </NavLinks>
     </NavContainer>
   );

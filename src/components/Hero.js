@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { keyframes } from 'styled-components';
-import heroIllustration from './images/hero-illustration.svg'; // Add your illustration file
+import heroIllustration from './images/hero-illustration.svg';
 
-// Define a fadeIn animation
+
 const fadeIn = keyframes`
   from {
     opacity: 0;
@@ -15,7 +15,6 @@ const fadeIn = keyframes`
   }
 `;
 
-// Define a bounce animation for the scroll indicator
 const bounce = keyframes`
   0%, 20%, 50%, 80%, 100% {
     transform: translateY(0);
@@ -93,7 +92,6 @@ const ScrollIndicator = styled.div`
 `;
 
 function Hero() {
-  // Dynamic content (can be fetched from an API or CMS)
   const heroData = {
     title: 'Learn Languages Effortlessly',
     subtitle: 'Immerse yourself in a new language with interactive lessons and real-world practice.',

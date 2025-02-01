@@ -5,7 +5,8 @@ import Courses from './components/Courses';
 import DictionaryComponent from './components/api/DictionaryComponent';
 import QuoteComponent from './components/api/QuoteComponent';
 import BookSearchComponent from './components/api/BookSearchComponent';
-import Contact from './components/contact';
+import Contact from './components/contact'; 
+import About from './components/About';
 import styled from 'styled-components';
 
 const ApiSection = styled.section`
@@ -32,7 +33,8 @@ function App() {
         <QuoteComponent />
         <BookSearchComponent />
       </ApiSection>
-
+      
+      <About /> {}
       <Contact /> {}
     </div>
   );
