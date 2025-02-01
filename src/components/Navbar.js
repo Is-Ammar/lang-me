@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
+import { Link } from 'react-scroll';
 
 const fadeIn = keyframes`
   from {
@@ -63,6 +64,7 @@ const NavLinks = styled.ul`
     font-weight: ${({ theme }) => theme.fontWeights.medium};
     font-family: ${({ theme }) => theme.fonts.primary};
     transition: color ${({ theme }) => theme.transitions.medium};
+    cursor: pointer;
 
     &:hover {
       color: ${({ theme }) => theme.colors.primary};
@@ -107,42 +109,6 @@ function Navbar() {
     setIsOpen(!isOpen);
   };
 
-  const scrollToBottom = () => {
-    window.scrollTo({
-      top: document.documentElement.scrollHeight, 
-      behavior: 'smooth',
-    });
-    setIsOpen(false); 
-  };
-
-  const scrollTo75Percent = () => {
-    const totalHeight = document.documentElement.scrollHeight;
-    const scrollPosition = totalHeight * 0.52; 
-    window.scrollTo({
-      top: scrollPosition,
-      behavior: 'smooth',
-    });
-    setIsOpen(false); 
-  }
-  const scrollToCourse = () => {
-    const totalHeight = document.documentElement.scrollHeight;
-    const scrollPosition = totalHeight * 0.25; 
-    window.scrollTo({
-      top: scrollPosition,
-      behavior: 'smooth',
-    });
-    setIsOpen(false); 
-  }
-  const scrollToTop = () => {
-    const totalHeight = document.documentElement.scrollHeight;
-    const scrollPosition = 0; 
-    window.scrollTo({
-      top: scrollPosition,
-      behavior: 'smooth',
-    });
-    setIsOpen(false); 
-  }
-
   return (
     <NavContainer>
       <Logo>Lang-me</Logo>
@@ -152,10 +118,46 @@ function Navbar() {
         <div></div>
       </Hamburger>
       <NavLinks isOpen={isOpen}>
-        <li><a href ="#Home" onClick={scrollToTop}>Home</a></li>
-        <li><a href ="#Course" onClick={scrollToCourse}>Courses</a></li>
-        <li><a href ="#Contact" onClick={scrollToBottom}>Contact</ a></li>
-        <li><a href ="#About" onClick={scrollTo75Percent}>About</a></li>
+        <li>
+          <Link
+            to="home"
+            smooth={true}
+            duration={500}
+            onClick={() => setIsOpen(false)}
+          >
+            Home
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="courses"
+            smooth={true}
+            duration={500}
+            onClick={() => setIsOpen(false)}
+          >
+            Courses
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="about"
+            smooth={true}
+            duration={500}
+            onClick={() => setIsOpen(false)}
+          >
+            About
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="contact"
+            smooth={true}
+            duration={500}
+            onClick={() => setIsOpen(false)}
+          >
+            Contact
+          </Link>
+        </li>
       </NavLinks>
     </NavContainer>
   );
