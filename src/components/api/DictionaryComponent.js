@@ -9,7 +9,7 @@ import {
   ApiResult,
   ApiErrorMessage
 } from './ApiStyles';
-import { ClipLoader } from 'react-spinners'; // Install react-spinners for this
+import { ClipLoader } from 'react-spinners';
 
 function DictionaryComponent() {
   const [word, setWord] = useState('');

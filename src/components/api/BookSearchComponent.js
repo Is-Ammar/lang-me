@@ -9,7 +9,7 @@ import {
   ApiResult,
   ApiErrorMessage
 } from './ApiStyles';
-import { ClipLoader } from 'react-spinners'; // Install react-spinners for this
+import { ClipLoader } from 'react-spinners';
 
 function BookSearchComponent() {
   const [query, setQuery] = useState('');
@@ -25,7 +25,7 @@ function BookSearchComponent() {
 
     try {
       const response = await axios.get(`https://openlibrary.org/search.json?q=${query}`);
-      setBooks(response.data.docs.slice(0, 5)); // Limit to 5 results
+      setBooks(response.data.docs.slice(0, 5));
     } catch (err) {
       setError('Failed to search books. Please try again.');
       setBooks([]);
