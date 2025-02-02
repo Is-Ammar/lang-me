@@ -1,8 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import { keyframes } from 'styled-components';
+import React, { useState } from 'react';
+import styled, { keyframes } from 'styled-components';
 import heroIllustration from './images/hero-illustration.svg';
-
 
 const fadeIn = keyframes`
   from {
@@ -35,6 +33,9 @@ const HeroSection = styled.div`
   background: linear-gradient(135deg, ${({ theme }) => theme.colors.primary}, ${({ theme }) => theme.colors.secondary});
   color: ${({ theme }) => theme.colors.white};
   text-align: center;
+  position: relative;
+  filter: ${({ blur }) => (blur ? 'blur(5px)' : 'none')};
+  transition: filter 0.3s ease;
 `;
 
 const HeroContent = styled.div`
@@ -91,25 +92,138 @@ const ScrollIndicator = styled.div`
   cursor: pointer;
 `;
 
+const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+`;
+
+const LoginForm = styled.div`
+  background: ${({ theme }) => theme.colors.white};
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  animation: ${fadeIn} 0.5s ease forwards;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  position: relative;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    padding: 1.5rem;
+    width: 95%;
+  }
+`;
+
+const LoginTitle = styled.h2`
+  font-size: 2rem;
+  color: ${({ theme }) => theme.colors.primary};
+  margin-bottom: 1.5rem;
+  font-family: ${({ theme }) => theme.fonts.primary};
+  font-weight: ${({ theme }) => theme.fontWeights.bold};
+`;
+
+const LoginInput = styled.input`
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid ${({ theme }) => theme.colors.lightBackground};
+  border-radius: 4px;
+  font-size: 1rem;
+  font-family: ${({ theme }) => theme.fonts.primary};
+
+  &:focus {
+    border-color: ${({ theme }) => theme.colors.secondary};
+    outline: none;
+  }
+`;
+
+const LoginButton = styled.button`
+  width: 100%;
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.white};
+  border: none;
+  border-radius: 4px;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-family: ${({ theme }) => theme.fonts.primary};
+  font-weight: ${({ theme }) => theme.fontWeights.medium};
+  cursor: pointer;
+  transition: background-color ${({ theme }) => theme.transitions.medium};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.secondary};
+  }
+`;
+
+const CloseButton = styled.button`
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  color: ${({ theme }) => theme.colors.primary};
+  font-size: 1.5rem;
+  cursor: pointer;
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.secondary};
+  }
+`;
+
 function Hero() {
+  const [showLogin, setShowLogin] = useState(false);
+
   const heroData = {
     title: 'Learn Languages Effortlessly',
     subtitle: 'Immerse yourself in a new language with interactive lessons and real-world practice.',
     buttonText: 'Get Started',
   };
 
+  const handleGetStartedClick = () => {
+    setShowLogin(true);
+  };
+
+  const handleLogin = () => {
+    alert('Login logic here');
+  };
+
+  const handleCloseLogin = () => {
+    setShowLogin(false);
+  };
+
   return (
-    <HeroSection>
-      <HeroContent>
-        <img src={heroIllustration} alt="Language Learning" style={{ width: '300px', marginBottom: '2rem' }} />
-        <HeroTitle>{heroData.title}</HeroTitle>
-        <HeroSubtitle>{heroData.subtitle}</HeroSubtitle>
-        <HeroButton>{heroData.buttonText}</HeroButton>
-        <ScrollIndicator onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}>
-          ↓
-        </ScrollIndicator>
-      </HeroContent>
-    </HeroSection>
+    <>
+      <HeroSection blur={showLogin}>
+        <HeroContent>
+          <img src={heroIllustration} alt="Language Learning" style={{ width: '300px', marginBottom: '2rem' }} />
+          <HeroTitle>{heroData.title}</HeroTitle>
+          <HeroSubtitle>{heroData.subtitle}</HeroSubtitle>
+          <HeroButton onClick={handleGetStartedClick}>{heroData.buttonText}</HeroButton>
+          <ScrollIndicator onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}>
+            ↓
+          </ScrollIndicator>
+        </HeroContent>
+      </HeroSection>
+      {showLogin && (
+        <ModalOverlay>
+          <LoginForm>
+            <CloseButton onClick={handleCloseLogin}>×</CloseButton>
+            <LoginTitle>Login</LoginTitle>
+            <LoginInput type="text" placeholder="Username" />
+            <LoginInput type="password" placeholder="Password" />
+            <LoginButton onClick={handleLogin}>Login</LoginButton>
+          </LoginForm>
+        </ModalOverlay>
+      )}
+    </>
   );
 }
 
