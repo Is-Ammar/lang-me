@@ -31,12 +31,14 @@ const Logo = styled.div`
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   color: ${({ theme }) => theme.colors.primary};
   font-family: ${({ theme }) => theme.fonts.primary};
+  cursor: pointer;
 `;
 
 const NavLinks = styled.ul`
   display: flex;
   list-style: none;
   align-items: center;
+  transition: transform 0.3s ease-in-out;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
@@ -102,6 +104,7 @@ const Hamburger = styled.div`
   }
 `;
 
+
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -109,41 +112,52 @@ function Navbar() {
     setIsOpen(!isOpen);
   };
 
+  const closeMenu = () => {
+    setIsOpen(false);
+  };
+
+  const scrollToCourse = () => {
+    const totalHeight = document.documentElement.scrollHeight;
+    const scrollPosition = totalHeight * 0.25; 
+    window.scrollTo({
+      top: scrollPosition,
+      behavior: 'smooth',
+    });
+    setIsOpen(false); 
+  }
+  const scrollToTop = () => {
+    const totalHeight = document.documentElement.scrollHeight;
+    const scrollPosition = 0; 
+    window.scrollTo({
+      top: scrollPosition,
+      behavior: 'smooth',
+    });
+    setIsOpen(false); 
+  }
+  
   return (
     <NavContainer>
-      <Logo>Lang-me</Logo>
-      <Hamburger onClick={toggleMenu} className={isOpen ? 'open' : ''}>
+      <Logo onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+        Lang-me
+      </Logo>
+      <Hamburger
+        onClick={toggleMenu}
+        className={isOpen ? 'open' : ''}
+        aria-label="Toggle menu"
+      >
         <div></div>
         <div></div>
         <div></div>
       </Hamburger>
       <NavLinks isOpen={isOpen}>
-        <li>
-          <Link
-            to="home"
-            smooth={true}
-            duration={500}
-            onClick={() => setIsOpen(false)}
-          >
-            Home
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="courses"
-            smooth={true}
-            duration={500}
-            onClick={() => setIsOpen(false)}
-          >
-            Courses
-          </Link>
-        </li>
+      <li><a href ="#Home" onClick={scrollToTop}>Home</a></li>
+      <li><a href ="#Course" onClick={scrollToCourse}>Courses</a></li>
         <li>
           <Link
             to="about"
             smooth={true}
             duration={500}
-            onClick={() => setIsOpen(false)}
+            onClick={closeMenu}
           >
             About
           </Link>
@@ -153,7 +167,7 @@ function Navbar() {
             to="contact"
             smooth={true}
             duration={500}
-            onClick={() => setIsOpen(false)}
+            onClick={closeMenu}
           >
             Contact
           </Link>
