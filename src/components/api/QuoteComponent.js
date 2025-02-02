@@ -34,6 +34,7 @@ function QuoteComponent() {
       setQuote({
         content: quoteData.quote,
         author: quoteData.author,
+        category: quoteData.category,
       });
     } catch (err) {
       console.error('API Error:', err);
@@ -68,6 +69,7 @@ function QuoteComponent() {
                     - {quote.author}
                   </footer>
                 </blockquote>
+                <p style={{ margin: 0, fontStyle: 'italic', color: '#2c3e50', fontWeight: 'bold' }} >Category: "{quote.content}"</p>
               </ApiResult>
             ) : (
               <p>No quote available.</p>
