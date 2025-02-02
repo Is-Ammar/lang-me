@@ -86,7 +86,7 @@ function Contact() {
     <ContactContainer id="contact">
       <ContactTitle>Contact me</ContactTitle>
       <ContactDescription>
-        Have questions or want to get in touch? Send us a message and we'll respond as soon as possible.
+        Have questions or want to get in touch? Send me a message and I'll respond as soon as possible.
       </ContactDescription>
       <ContactForm onSubmit={handleSubmit}>
         <Input type="text" placeholder="Your Name" required />
