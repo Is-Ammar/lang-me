@@ -35,8 +35,8 @@ const CoursesSection = styled.section`
 const CourseCard = styled.div`
   background: #fff;
   width: 100%;
-  max-width: 300px;
-  padding: 2rem;
+  max-width: 400px; /* Increased max-width */
+  padding: 3rem; /* Increased padding */
   border-radius: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   margin: 1rem;
@@ -55,14 +55,14 @@ const CourseCard = styled.div`
     margin-bottom: 1rem;
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
-    font-size: 1.5rem;
+    font-size: 1.8rem; /* Increased font size */
   }
 
   p {
     color: #34495e;
     font-family: 'Poppins', sans-serif;
     line-height: 1.6;
-    font-size: 1rem;
+    font-size: 1.2rem; /* Increased font size */
   }
 
   &:nth-child(1) {

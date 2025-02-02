@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import { keyframes } from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+import { Link } from 'react-scroll';
 
-// Define a fadeIn animation
 const fadeIn = keyframes`
   from {
     opacity: 0;
@@ -65,6 +64,7 @@ const NavLinks = styled.ul`
     font-weight: ${({ theme }) => theme.fontWeights.medium};
     font-family: ${({ theme }) => theme.fonts.primary};
     transition: color ${({ theme }) => theme.transitions.medium};
+    cursor: pointer;
 
     &:hover {
       color: ${({ theme }) => theme.colors.primary};
@@ -118,10 +118,46 @@ function Navbar() {
         <div></div>
       </Hamburger>
       <NavLinks isOpen={isOpen}>
-        <li><a href="#home" onClick={() => setIsOpen(false)}>Home</a></li>
-        <li><a href="#courses" onClick={() => setIsOpen(false)}>Courses</a></li>
-        <li><a href="#about" onClick={() => setIsOpen(false)}>About</a></li>
-        <li><a href="#contact" onClick={() => setIsOpen(false)}>Contact</a></li>
+        <li>
+          <Link
+            to="home"
+            smooth={true}
+            duration={500}
+            onClick={() => setIsOpen(false)}
+          >
+            Home
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="courses"
+            smooth={true}
+            duration={500}
+            onClick={() => setIsOpen(false)}
+          >
+            Courses
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="about"
+            smooth={true}
+            duration={500}
+            onClick={() => setIsOpen(false)}
+          >
+            About
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="contact"
+            smooth={true}
+            duration={500}
+            onClick={() => setIsOpen(false)}
+          >
+            Contact
+          </Link>
+        </li>
       </NavLinks>
     </NavContainer>
   );

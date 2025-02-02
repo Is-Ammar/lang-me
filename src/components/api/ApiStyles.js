@@ -12,15 +12,16 @@ export const ApiCard = styled.div`
   width: 100%;
   max-width: 400px;
   background-color: ${({ theme }) => theme.colors.white};
-  border-radius: 12px;
-  box-shadow: ${({ theme }) => theme.shadows.medium};
-  padding: ${({ theme }) => theme.spacing.medium};
+  border-radius: 15px; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  padding: 3rem; 
   margin-bottom: ${({ theme }) => theme.spacing.medium};
-  transition: transform ${({ theme }) => theme.transitions.medium}, box-shadow ${({ theme }) => theme.transitions.medium};
+  transition: transform 0.3s ease, box-shadow 0.3s ease; 
+  cursor: pointer;
 
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: ${({ theme }) => theme.shadows.large};
+    transform: translateY(-10px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); 
   }
 `;
 
@@ -30,6 +31,7 @@ export const ApiTitle = styled.h2`
   margin-bottom: ${({ theme }) => theme.spacing.medium};
   font-family: ${({ theme }) => theme.fonts.primary};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
+  font-size: 1.8rem;
 `;
 
 export const ApiInput = styled.input`
