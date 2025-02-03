@@ -69,7 +69,7 @@ function QuoteComponent() {
                     - {quote.author}
                   </footer>
                 </blockquote>
-                <p style={{ margin: 0, fontStyle: 'italic', color: '#2c3e50', fontWeight: 'bold' }} >Category: "{quote.content}"</p>
+                <p style={{ margin: 0, fontStyle: 'italic', color: '#2c3e50', fontWeight: 'bold' }} >Category: "{quote.category}"</p>
               </ApiResult>
             ) : (
               <p>No quote available.</p>
