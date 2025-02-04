@@ -77,9 +77,32 @@ const SubmitButton = styled.button`
 `;
 
 function Contact() {
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert('Thank you for your message! I will get back to you soon.');
+
+    const formspreeEndpoint = 'https://formspree.io/f/mkgoblpz';
+
+    const formData = new FormData(e.target);
+
+    try {
+      const response = await fetch(formspreeEndpoint, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          Accept: 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        alert('Thank you for your message! I will get back to you soon.');
+        e.target.reset(); 
+      } else {
+        alert('Oops! Something went wrong. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('Oops! Something went wrong. Please try again.');
+    }
   };
 
   return (
@@ -89,9 +112,9 @@ function Contact() {
         Have questions or want to get in touch? Send me a message and I'll respond as soon as possible.
       </ContactDescription>
       <ContactForm onSubmit={handleSubmit}>
-        <Input type="text" placeholder="Your Name" required />
-        <Input type="email" placeholder="Your Email" required />
-        <TextArea placeholder="Your Message" required />
+        <Input type="text" name="name" placeholder="Your Name" required />
+        <Input type="email" name="email" placeholder="Your Email" required />
+        <TextArea name="message" placeholder="Your Message" required />
         <SubmitButton type="submit">Send Message</SubmitButton>
       </ContactForm>
     </ContactContainer>
