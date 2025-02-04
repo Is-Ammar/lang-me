@@ -105,7 +105,7 @@ const ModalOverlay = styled.div`
   z-index: 1000;
 `;
 
-const LoginForm = styled.div`
+const FormContainer = styled.div`
   background: ${({ theme }) => theme.colors.white};
   padding: 2rem;
   border-radius: 8px;
@@ -115,6 +115,7 @@ const LoginForm = styled.div`
   max-width: 400px;
   text-align: center;
   position: relative;
+  overflow: hidden;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     padding: 1.5rem;
@@ -122,7 +123,7 @@ const LoginForm = styled.div`
   }
 `;
 
-const LoginTitle = styled.h2`
+const FormTitle = styled.h2`
   font-size: 2rem;
   color: ${({ theme }) => theme.colors.primary};
   margin-bottom: 1.5rem;
@@ -130,7 +131,7 @@ const LoginTitle = styled.h2`
   font-weight: ${({ theme }) => theme.fontWeights.bold};
 `;
 
-const LoginInput = styled.input`
+const FormInput = styled.input`
   width: 100%;
   padding: 0.75rem;
   margin-bottom: 1rem;
@@ -145,7 +146,7 @@ const LoginInput = styled.input`
   }
 `;
 
-const LoginButton = styled.button`
+const FormButton = styled.button`
   width: 100%;
   background-color: ${({ theme }) => theme.colors.primary};
   color: ${({ theme }) => theme.colors.white};
@@ -178,8 +179,37 @@ const CloseButton = styled.button`
   }
 `;
 
+const ToggleButton = styled.button`
+  background: transparent;
+  border: none;
+  color: ${({ theme }) => theme.colors.primary};
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 1rem;
+  text-decoration: underline;
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.secondary};
+  }
+`;
+
+const expandAnimation = keyframes`
+  from {
+    height: 300px;
+  }
+  to {
+    height: 450px;
+  }
+`;
+
+const FormWrapper = styled.div`
+  animation: ${({ isExpanded }) => (isExpanded ? expandAnimation : 'none')} 0.5s ease forwards;
+`;
+
 function Hero() {
   const [showLogin, setShowLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const heroData = {
     title: 'Learn Languages Effortlessly',
@@ -192,11 +222,22 @@ function Hero() {
   };
 
   const handleLogin = () => {
-    alert('Login logic here');
+    alert('Login functionality coming soon!');
+  };
+
+  const handleSignUp = () => {
+    alert('Sign up functionality coming soon!');
   };
 
   const handleCloseLogin = () => {
     setShowLogin(false);
+    setIsLogin(true);
+    setIsExpanded(false);
+  };
+
+  const toggleForm = () => {
+    setIsLogin(!isLogin);
+    setIsExpanded(!isExpanded);
   };
 
   return (
@@ -214,13 +255,21 @@ function Hero() {
       </HeroSection>
       {showLogin && (
         <ModalOverlay>
-          <LoginForm>
-            <CloseButton onClick={handleCloseLogin}>×</CloseButton>
-            <LoginTitle>Login</LoginTitle>
-            <LoginInput type="text" placeholder="Username" />
-            <LoginInput type="password" placeholder="Password" />
-            <LoginButton onClick={handleLogin}>Login</LoginButton>
-          </LoginForm>
+          <FormWrapper isExpanded={isExpanded}>
+            <FormContainer>
+              <CloseButton onClick={handleCloseLogin}>×</CloseButton>
+              <FormTitle>{isLogin ? 'Login' : 'Create Account'}</FormTitle>
+              <FormInput type="text" placeholder="Username" />
+              <FormInput type="password" placeholder="Password" />
+              {!isLogin && <FormInput type="email" placeholder="Email" />}
+              <FormButton onClick={isLogin ? handleLogin : handleSignUp}>
+                {isLogin ? 'Login' : 'Sign Up'}
+              </FormButton>
+              <ToggleButton onClick={toggleForm}>
+                {isLogin ? 'Create an account' : 'Already have an account? Login'}
+              </ToggleButton>
+            </FormContainer>
+          </FormWrapper>
         </ModalOverlay>
       )}
     </>
