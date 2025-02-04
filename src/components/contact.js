@@ -1,11 +1,33 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useState } from 'react';
+import styled, { keyframes } from 'styled-components';
+
+
+const slideIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+const fadeOut = keyframes`
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+`;
 
 const ContactContainer = styled.section`
   padding: 4rem 5%;
   background-color: ${({ theme }) => theme.colors.background};
   color: ${({ theme }) => theme.colors.text};
   text-align: center;
+  position: relative;
 `;
 
 const ContactTitle = styled.h2`
@@ -76,7 +98,25 @@ const SubmitButton = styled.button`
   }
 `;
 
+const SuccessMessage = styled.div`
+  position: fixed;
+  top: 20px; 
+  left: 37%;
+  transform: translateX(-60%); 
+  background-color: #4caf50;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: ${({ theme }) => theme.fonts.primary};
+  animation: ${slideIn} 0.5s ease forwards, ${fadeOut} 0.5s ease 2.5s forwards;
+  z-index: 1000;
+`;
+
+
 function Contact() {
+  const [isSuccess, setIsSuccess] = useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -94,8 +134,12 @@ function Contact() {
       });
 
       if (response.ok) {
-        alert('Thank you for your message! I will get back to you soon.');
-        e.target.reset(); 
+        setIsSuccess(true);
+        e.target.reset();
+
+        setTimeout(() => {
+          setIsSuccess(false);
+        }, 3000);
       } else {
         alert('Oops! Something went wrong. Please try again.');
       }
@@ -117,6 +161,9 @@ function Contact() {
         <TextArea name="message" placeholder="Your Message" required />
         <SubmitButton type="submit">Send Message</SubmitButton>
       </ContactForm>
+
+      {}
+      {isSuccess && <SuccessMessage>Thank you for your message! I will get back to you soon.</SuccessMessage>}
     </ContactContainer>
   );
 }
