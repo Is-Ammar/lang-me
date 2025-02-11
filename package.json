@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@auth0/auth0-react": "^2.3.0",
     "@emailjs/browser": "^4.4.1",
     "@fontsource/poppins": "^5.1.1",
     "@formspree/react": "^2.5.1",

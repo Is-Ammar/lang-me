@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import heroIllustration from './images/hero-illustration.svg';
 
+// sorry for spaghetti code XD
 const fadeIn = keyframes`
   from {
     opacity: 0;
@@ -22,6 +23,24 @@ const bounce = keyframes`
   }
   60% {
     transform: translateY(-5px);
+  }
+`;
+
+const typing = keyframes`
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+`;
+
+const blinkCaret = keyframes`
+  from, to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: ${({ theme }) => theme.colors.white};
   }
 `;
 
@@ -49,6 +68,10 @@ const HeroTitle = styled.h1`
   margin-bottom: 1rem;
   font-family: ${({ theme }) => theme.fonts.primary};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 0.15em solid ${({ theme }) => theme.colors.white};
+  animation: ${typing} 4s , ${blinkCaret} 0.75s step-end infinite;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     font-size: 2.5rem;
@@ -61,6 +84,8 @@ const HeroSubtitle = styled.p`
   margin-bottom: 2rem;
   font-family: ${({ theme }) => theme.fonts.primary};
   line-height: 1.6;
+  opacity: 0; /* Start hidden */
+  animation: ${fadeIn} 1s ease 3.5s forwards; /* Delay to match typing animation */
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     font-size: 1rem;
