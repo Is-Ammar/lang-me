@@ -133,7 +133,8 @@ function About() {
           </TeamMember>
         ))}
       </TeamContainer>
-      <AboutButton onClick={() => alert('Learn more about us!')}>Learn More</AboutButton>
+      <AboutButton onClick={() => window.location.href = 'https://github.com/Is-Ammar'}>My GitHub</AboutButton>
+
     </AboutContainer>
   );
 }

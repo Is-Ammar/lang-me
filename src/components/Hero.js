@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import heroIllustration from './images/hero-illustration.svg';
 
-// sorry for spaghetti code XD
 const fadeIn = keyframes`
   from {
     opacity: 0;
@@ -48,13 +47,21 @@ const HeroSection = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 6rem 2rem;
+  padding: 4rem 1rem;
   background: linear-gradient(135deg, ${({ theme }) => theme.colors.primary}, ${({ theme }) => theme.colors.secondary});
   color: ${({ theme }) => theme.colors.white};
   text-align: center;
   position: relative;
   filter: ${({ blur }) => (blur ? 'blur(5px)' : 'none')};
   transition: filter 0.3s ease;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    padding: 3rem 1rem;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    padding: 2rem 1rem;
+  }
 `;
 
 const HeroContent = styled.div`
@@ -63,7 +70,7 @@ const HeroContent = styled.div`
 `;
 
 const HeroTitle = styled.h1`
-  font-size: 3rem;
+  font-size: 2.5rem;
   color: ${({ theme }) => theme.colors.white};
   margin-bottom: 1rem;
   font-family: ${({ theme }) => theme.fonts.primary};
@@ -71,10 +78,14 @@ const HeroTitle = styled.h1`
   overflow: hidden;
   white-space: nowrap;
   border-right: 0.15em solid ${({ theme }) => theme.colors.white};
-  animation: ${typing} 4s , ${blinkCaret} 0.75s step-end infinite;
+  animation: ${typing} 4s, ${blinkCaret} 0.75s step-end infinite;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    font-size: 2rem;
+  }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    font-size: 2.5rem;
+    font-size: 1.5rem;
   }
 `;
 
@@ -84,8 +95,12 @@ const HeroSubtitle = styled.p`
   margin-bottom: 2rem;
   font-family: ${({ theme }) => theme.fonts.primary};
   line-height: 1.6;
-  opacity: 0; /* Start hidden */
-  animation: ${fadeIn} 1s ease 3.5s forwards; /* Delay to match typing animation */
+  opacity: 0;
+  animation: ${fadeIn} 1s ease 3.5s forwards;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    font-size: 1.1rem;
+  }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     font-size: 1rem;
@@ -108,6 +123,11 @@ const HeroButton = styled.button`
     background-color: ${({ theme }) => theme.colors.secondary};
     color: ${({ theme }) => theme.colors.white};
   }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    padding: 0.5rem 1.5rem;
+    font-size: 0.9rem;
+  }
 `;
 
 const ScrollIndicator = styled.div`
@@ -115,6 +135,10 @@ const ScrollIndicator = styled.div`
   font-size: 1.5rem;
   animation: ${bounce} 2s infinite;
   cursor: pointer;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: 1.25rem;
+  }
 `;
 
 const ModalOverlay = styled.div`
@@ -154,6 +178,10 @@ const FormTitle = styled.h2`
   margin-bottom: 1.5rem;
   font-family: ${({ theme }) => theme.fonts.primary};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: 1.5rem;
+  }
 `;
 
 const FormInput = styled.input`
@@ -168,6 +196,11 @@ const FormInput = styled.input`
   &:focus {
     border-color: ${({ theme }) => theme.colors.secondary};
     outline: none;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    padding: 0.5rem;
+    font-size: 0.9rem;
   }
 `;
 
@@ -187,6 +220,11 @@ const FormButton = styled.button`
   &:hover {
     background-color: ${({ theme }) => theme.colors.secondary};
   }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
 `;
 
 const CloseButton = styled.button`
@@ -202,6 +240,10 @@ const CloseButton = styled.button`
   &:hover {
     color: ${({ theme }) => theme.colors.secondary};
   }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: 1.25rem;
+  }
 `;
 
 const ToggleButton = styled.button`
@@ -215,6 +257,10 @@ const ToggleButton = styled.button`
 
   &:hover {
     color: ${({ theme }) => theme.colors.secondary};
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: 0.9rem;
   }
 `;
 
@@ -269,7 +315,7 @@ function Hero() {
     <>
       <HeroSection blur={showLogin}>
         <HeroContent>
-          <img src={heroIllustration} alt="Language Learning" style={{ width: '300px', marginBottom: '2rem' }} />
+          <img src={heroIllustration} alt="Language Learning" style={{ width: '100%', maxWidth: '300px', marginBottom: '2rem' }} />
           <HeroTitle>{heroData.title}</HeroTitle>
           <HeroSubtitle>{heroData.subtitle}</HeroSubtitle>
           <HeroButton onClick={handleGetStartedClick}>{heroData.buttonText}</HeroButton>
