@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.js": "/lang-me/static/js/main.d8526d70.js",
+    "main.js": "/lang-me/static/js/main.7541895e.js",
     "static/media/hero-illustration.svg": "/lang-me/static/media/hero-illustration.9cdcef01fbb9a1da4d7dce132f729cb3.svg",
     "index.html": "/lang-me/index.html",
-    "main.d8526d70.js.map": "/lang-me/static/js/main.d8526d70.js.map"
+    "main.7541895e.js.map": "/lang-me/static/js/main.7541895e.js.map"
   },
   "entrypoints": [
-    "static/js/main.d8526d70.js"
+    "static/js/main.7541895e.js"
   ]
 }
